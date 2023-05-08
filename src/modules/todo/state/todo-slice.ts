@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../../store'
-
-interface TodoItem {
-  id: string
-  text: string
-}
+import type { TodoItem } from '../types/TodoItem'
 
 interface TodoState {
   todos: Record<string, TodoItem>
