@@ -1,40 +1,25 @@
-import { createServer } from 'miragejs'
 import type { TodoItem } from '../types/TodoItem'
 import { useForm } from 'react-hook-form'
 import { useFetchTodos } from '../hooks/useFetchTodos'
+import mockServer from '../mockServer'
 
-// mirage logic
-createServer({
-  routes() {
-    this.get('/api/todos', (): TodoItem[] => [
-      { id: '1', text: 'lol' },
-      { id: '2', text: 'foo' },
-    ])
-
-    let newId = 3
-    this.post('/api/todos', (schema, request): TodoItem => {
-      // server assigns id so it get TodoItem without id
-      const attrs = JSON.parse(request.requestBody) as Omit<TodoItem, 'id'>
-      const id: string = (newId++).toString()
-      return { ...attrs, id }
-    })
-  },
-})
+mockServer()
 
 type AddTodoFormValues = {
   text: string
 }
 
 function Todo() {
-  const todos = useFetchTodos()
+  const [todos, setTodos] = useFetchTodos()
 
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
   const onSubmit = handleSubmit((data) => {
     fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
       .then(async (res) => {
-        const json = (await res.json()) as TodoItem
-        console.log(`res from Post id:${json.id} text:${json.text}`)
+        const { todo } = (await res.json()) as { todo: TodoItem }
+        setTodos((prev) => [...prev, todo])
+        reset()
       })
       .catch((err) => {
         console.error(err)
@@ -45,7 +30,7 @@ function Todo() {
     <>
       <h1>Todo list</h1>
       <ul>
-        {todos?.map((todo) => {
+        {todos.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
         })}
       </ul>

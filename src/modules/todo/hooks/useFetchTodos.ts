@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import type { TodoItem } from '../types/TodoItem'
 
-export function useFetchTodos() {
-  const [todos, setTodos] = useState<TodoItem[] | null>(null)
+export function useFetchTodos(): [
+  TodoItem[],
+  React.Dispatch<React.SetStateAction<TodoItem[]>>
+] {
+  const [todos, setTodos] = useState<TodoItem[]>([])
 
   useEffect(() => {
     fetch('api/todos')
       .then(async (res) => {
         if (res.ok) {
-          const todos = (await res.json()) as TodoItem[]
+          const { todos } = (await res.json()) as { todos: TodoItem[] }
           setTodos(todos)
         }
       })
@@ -17,5 +20,5 @@ export function useFetchTodos() {
       })
   }, [])
 
-  return todos
+  return [todos, setTodos]
 }
