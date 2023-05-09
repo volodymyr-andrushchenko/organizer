@@ -1,17 +1,17 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Todo from './modules/todo/components/todo/Todo'
-import Calendar from './modules/calendar/components/Calendar'
 import { ReactQueryProvider } from './providers/ReactQueryProvider'
+import { pages } from './pages'
 
 function App() {
   return (
     <BrowserRouter>
       <ReactQueryProvider>
         <Routes>
-          <Route path="/" element={<Todo />} />
-          <Route path="/calendar" element={<Calendar />} />
+          {pages.map(({ path, element }) => {
+            return <Route key={path} path={path} element={element} />
+          })}
         </Routes>
-        </ReactQueryProvider> 
+      </ReactQueryProvider>
     </BrowserRouter>
   )
 }
