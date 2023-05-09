@@ -6,3 +6,9 @@ export const fetchTodos = () => {
     return todos
   })
 }
+
+type PostTodoData = Omit<TodoItem, 'id'>
+
+export const postTodo = (data: PostTodoData) => {
+  return fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
+}
