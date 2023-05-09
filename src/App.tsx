@@ -1,19 +1,17 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Todo from './modules/todo/components/todo/Todo'
 import Calendar from './modules/calendar/components/Calendar'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-const queryClient = new QueryClient()
+import { ReactQueryProvider } from './providers/ReactQueryProvider'
 
 function App() {
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
+      <ReactQueryProvider>
         <Routes>
           <Route path="/" element={<Todo />} />
           <Route path="/calendar" element={<Calendar />} />
         </Routes>
-      </QueryClientProvider>
+        </ReactQueryProvider> 
     </BrowserRouter>
   )
 }
