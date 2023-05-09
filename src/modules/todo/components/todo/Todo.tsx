@@ -10,7 +10,7 @@ type AddTodoFormValues = {
 function Todo() {
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
-  const { isLoading, data } = useFetchTodos()
+  const todoList = useFetchTodos()
 
   const mutation = useMutationToPostTodo()
 
@@ -26,8 +26,8 @@ function Todo() {
     <div>
       <h1 className={classes.root}>Todo list</h1>
       <ul>
-        {isLoading && 'loading...'}
-        {data?.map((todo) => {
+        {todoList.isLoading && 'loading...'}
+        {todoList.data?.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
         })}
       </ul>
