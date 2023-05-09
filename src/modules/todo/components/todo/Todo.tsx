@@ -1,9 +1,6 @@
-import type { TodoItem } from '../types/TodoItem'
+import type { TodoItem } from './Todo.interface'
 import { useForm } from 'react-hook-form'
-import { useFetchTodos } from '../hooks/useFetchTodos'
-import mockServer from '../mockServer'
-
-mockServer()
+import { useFetchTodos } from '../../../../hooks/useFetchTodos'
 
 type AddTodoFormValues = {
   text: string

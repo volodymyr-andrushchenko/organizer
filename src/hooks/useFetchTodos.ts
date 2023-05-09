@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import type { TodoItem } from '../types/TodoItem'
+import type { TodoItem } from '../modules/todo/components/todo/Todo.interface'
 
 export function useFetchTodos(): [
   TodoItem[],
