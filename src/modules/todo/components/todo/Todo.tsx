@@ -1,6 +1,7 @@
 import type { TodoItem } from './Todo.interface'
 import { useForm } from 'react-hook-form'
 import { useFetchTodos } from '../../../../hooks/useFetchTodos'
+import * as classes from './Todo.module.scss'
 
 type AddTodoFormValues = {
   text: string
@@ -24,8 +25,8 @@ function Todo() {
   })
 
   return (
-    <>
-      <h1>Todo list</h1>
+    <div>
+      <h1 className={classes.root}>Todo list</h1>
       <ul>
         {todos.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
@@ -39,7 +40,7 @@ function Todo() {
         </label>
         <input type="submit" value="Add To-Do" />
       </form>
-    </>
+    </div>
   )
 }
 
