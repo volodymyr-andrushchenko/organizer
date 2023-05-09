@@ -1,34 +1,42 @@
 import type { TodoItem } from './Todo.interface'
 import { useForm } from 'react-hook-form'
-import { useFetchTodos } from '../../../../hooks/useFetchTodos'
+// import { useFetchTodos } from '../../../../hooks/useFetchTodos'
 import * as classes from './Todo.module.scss'
+import { useQuery } from '@tanstack/react-query'
+import { fetchTodos } from '../../api'
 
 type AddTodoFormValues = {
   text: string
 }
 
 function Todo() {
-  const [todos, setTodos] = useFetchTodos()
-
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
+  const { isLoading, data } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+  })
+
   const onSubmit = handleSubmit((data) => {
-    fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
-      .then(async (res) => {
-        const { todo } = (await res.json()) as { todo: TodoItem }
-        setTodos((prev) => [...prev, todo])
-        reset()
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    console.log(data)
+
+    // fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
+    //   .then(async (res) => {
+    //     const { todo } = (await res.json()) as { todo: TodoItem }
+    //     setTodos((prev) => [...prev, todo])
+    //     reset()
+    //   })
+    //   .catch((err) => {
+    //     console.error(err)
+    //   })
   })
 
   return (
     <div>
       <h1 className={classes.root}>Todo list</h1>
       <ul>
-        {todos.map((todo) => {
+        {isLoading && 'loading...'}
+        {data?.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
         })}
       </ul>
