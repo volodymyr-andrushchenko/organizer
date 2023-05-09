@@ -1,8 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as classes from './Todo.module.scss'
-import { useQuery } from '@tanstack/react-query'
-import { TodoApiService } from '../../api'
 import { useMutationToPostTodo } from '../../hooks/useMutationToPostTodo'
+import { useFetchTodos } from '../../hooks/useFetchTodos'
 
 type AddTodoFormValues = {
   text: string
@@ -11,10 +10,7 @@ type AddTodoFormValues = {
 function Todo() {
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
-  const { isLoading, data } = useQuery({
-    queryKey: ['todos'],
-    queryFn: TodoApiService.retrieve,
-  })
+  const { isLoading, data } = useFetchTodos()
 
   const mutation = useMutationToPostTodo()
 
