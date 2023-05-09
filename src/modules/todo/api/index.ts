@@ -1,4 +1,4 @@
-import { TodoItem } from '../components/todo/Todo.interface'
+import type TodoItem from '../types/Todo.interface'
 
 type PostTodoData = Omit<TodoItem, 'id'>
 
