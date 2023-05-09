@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+    "lint": "eslint \"src/**/*.{ts, tsx}\" --quiet"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
