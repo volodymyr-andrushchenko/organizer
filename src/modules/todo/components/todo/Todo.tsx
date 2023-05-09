@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as classes from './Todo.module.scss'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { fetchTodos, postTodo } from '../../api'
+import { TodoApiService } from '../../api'
 
 type AddTodoFormValues = {
   text: string
@@ -14,11 +14,11 @@ function Todo() {
 
   const { isLoading, data } = useQuery({
     queryKey: ['todos'],
-    queryFn: fetchTodos,
+    queryFn: TodoApiService.retrieve,
   })
 
   const mutation = useMutation({
-    mutationFn: postTodo,
+    mutationFn: TodoApiService.create,
     onSuccess: () => {
       queryClient
         .invalidateQueries({ queryKey: ['todos'] })
