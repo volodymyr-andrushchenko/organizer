@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import Todo from './modules/todo/components/Todo'
+import Todo from './modules/todo/components/todo/Todo'
 import Calendar from './modules/calendar/components/Calendar'
 
 function App() {
