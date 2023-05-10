@@ -9,6 +9,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import Typography, { TypographyProps } from "@mui/material/Typography"
 import { lightBlue } from "@mui/material/colors"
+import { getDatesToDisplay } from "../utils"
 
 const Section = styled('section')({
     minHeight: 264,
@@ -73,29 +74,6 @@ const Day = styled(Typography, {
 }))
 
 
-function getDatesAroundProvidedDate(providedDate: Date): Date[] {
-    const tenDaysBefore = [];
-    for (let i = 1; i <= 10; i++) {
-        const date = new Date(providedDate.getTime() - i * 24 * 60 * 60 * 1000);
-        tenDaysBefore.push(date);
-    }
-
-    const thirtyOneDaysAfter = [];
-    for (let i = 1; i <= 31; i++) {
-        const date = new Date(providedDate.getTime() + i * 24 * 60 * 60 * 1000);
-        thirtyOneDaysAfter.push(date);
-    }
-
-    return [...tenDaysBefore.reverse(), providedDate, ...thirtyOneDaysAfter];
-}
-
-function breakArrayIntoChunksOfSeven<T>(array: T[]) {
-    const subarrays = [];
-    for (let i = 0; i < array.length; i += 7) {
-        subarrays.push(array.slice(i, i + 7));
-    }
-    return subarrays;
-}
 
 function CalendarSmall() {
     const { stateCalendar, setStateCalendar } = useContext(CalendarContext)
@@ -104,7 +82,7 @@ function CalendarSmall() {
     const [internalDate, setInternalDate] = useState(selectedDate)
     const [selectedInternalDate, setSelectedInternalDate] = useState(selectedDate)
 
-    const weeks = breakArrayIntoChunksOfSeven(getDatesAroundProvidedDate(internalDate))
+    const weeks = getDatesToDisplay(internalDate)
 
     function MoveMonths(direction: '<' | '>') {
         setInternalDate(direction === "<" ? subMonths(internalDate, 1) : addMonths(internalDate, 1))
