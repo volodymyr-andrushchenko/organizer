@@ -1,16 +1,16 @@
-import { getYear, getMonth, getDate, getTime } from "date-fns"
+import { isSameDay } from "date-fns"
 
-function getSelectedWeekIndex(selectedDate: Date, weeks: any, startTime: number) {
-    const _year = getYear(selectedDate)
-    const _month = getMonth(selectedDate)
-    const _day = getDate(selectedDate)
+// This function finds in which week is the selected date
+function getSelectedWeekIndex(selectedDate: Date, weeks: Date[][]): number {
+    weeks.forEach((week, weekIndex) => {
+        week.forEach((day) => {
+            if (isSameDay(selectedDate, day)) {
+                return weekIndex
+            }
+        })
+    })
 
-    return weeks.reduce(
-        (position: number, week: any, index: number) =>
-            week.find((day: Date) => getTime(day) === getTime(new Date(_year, _month, _day, startTime, 0, 0)))
-                ? (position = index)
-                : position,
-        0,
-    )
+    return -1
 }
+
 export default getSelectedWeekIndex

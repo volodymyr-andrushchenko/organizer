@@ -88,12 +88,10 @@ function Calendar() {
 
                 <CalendarDrawer />
 
-                {/*
                 <CalendarMain
-                    open={open}
                     runAnimation={runAnimation}
                 />
-
+                {/*
                 <CalendarEventDialog />
                 <CalendarEventViewDialog /> */}
             </RootWrapper>
