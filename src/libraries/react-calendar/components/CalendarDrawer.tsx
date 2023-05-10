@@ -1,4 +1,3 @@
-import React from 'react'
 import { makeStyles, useTheme, Theme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider'
@@ -37,7 +36,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }))
 
-function CalendarDrawer(props: any) {
+interface CalendarDrawerProps {
+    open: boolean
+    handleDrawerClose: () => void
+}
+
+function CalendarDrawer(props: CalendarDrawerProps) {
     const { open, handleDrawerClose } = props
     const classes = useStyles()
     const theme = useTheme()
@@ -62,7 +66,6 @@ function CalendarDrawer(props: any) {
                 <CalendarSmall />
             </div>
             <Divider />
-            {/* {"{info/notes}"} */}
         </Drawer>
     )
 }
