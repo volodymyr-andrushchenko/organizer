@@ -86,11 +86,9 @@ function Calendar() {
                     previous={previous}
                 />
 
-                {/* <CalendarDrawer
-                    open={open}
-                    handleDrawerClose={handleDrawerClose}
-                />
+                <CalendarDrawer />
 
+                {/*
                 <CalendarMain
                     open={open}
                     runAnimation={runAnimation}
