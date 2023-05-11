@@ -1,0 +1,21 @@
+.grid {
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 600px;
+}
+
+.draggable {
+    background-color: beige;
+    max-width: max-content;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hint {
+    border: 1px solid black;
+}
+
+.hintContent {
+    padding: 20px;
+}

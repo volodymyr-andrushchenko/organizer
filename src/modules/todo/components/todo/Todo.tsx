@@ -3,6 +3,7 @@ import { useCreateTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
 import { useFetchTodos } from '@/modules/todo/hooks/useFetchTodos'
 import TodoList from '../todo-list/TodoList'
 import AddTodoForm from '../add-todo-form/AddTodoForm'
+import Notes from '../sticky-notes/Notes'
 
 function Todo() {
   const todoList = useFetchTodos()
@@ -23,6 +24,8 @@ function Todo() {
       {todoList.isLoading && 'loading...'}
       {todoList.data && <TodoList items={todoList.data} />}
       <AddTodoForm />
+
+      <Notes />
     </div>
   )
 }
