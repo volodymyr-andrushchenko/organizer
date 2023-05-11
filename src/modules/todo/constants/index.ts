@@ -1,0 +1,1 @@
+export const FETCH_TODO_LIST_QUERY_KEY = 'todos'

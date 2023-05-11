@@ -7,9 +7,9 @@ function App() {
     <BrowserRouter>
       <ReactQueryProvider>
         <Routes>
-          {pages.map(({ path, element }) => {
-            return <Route key={path} path={path} element={element} />
-          })}
+          {pages.map(({ path, element }) =>
+            <Route key={path} path={path} element={element} />
+          )}
         </Routes>
       </ReactQueryProvider>
     </BrowserRouter>

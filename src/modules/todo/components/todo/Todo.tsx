@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as classes from './Todo.module.scss'
-import { useMutationToPostTodo } from '../../hooks/useMutationToPostTodo'
-import { useFetchTodos } from '../../hooks/useFetchTodos'
+import { useMutationToPostTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
+import { useFetchTodos } from '@/modules/todo/hooks/useFetchTodos'
 
 type AddTodoFormValues = {
   text: string
