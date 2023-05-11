@@ -1,34 +1,47 @@
-import type { TodoItem } from './Todo.interface'
 import { useForm } from 'react-hook-form'
-import { useFetchTodos } from '../../../../hooks/useFetchTodos'
 import * as classes from './Todo.module.scss'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { fetchTodos, postTodo } from '../../api'
 
 type AddTodoFormValues = {
   text: string
 }
 
 function Todo() {
-  const [todos, setTodos] = useFetchTodos()
-
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
-  const onSubmit = handleSubmit((data) => {
-    fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
-      .then(async (res) => {
-        const { todo } = (await res.json()) as { todo: TodoItem }
-        setTodos((prev) => [...prev, todo])
-        reset()
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+  const queryClient = useQueryClient()
+
+  const { isLoading, data } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+  })
+
+  const mutation = useMutation({
+    mutationFn: postTodo,
+    onSuccess: () => {
+      queryClient
+        .invalidateQueries({ queryKey: ['todos'] })
+        .catch((err: unknown) => {
+          console.log(err)
+        })
+    },
+  })
+
+  const onSubmit = handleSubmit(({ text }) => {
+    mutation.mutate({
+      text,
+    })
+
+    reset()
   })
 
   return (
     <div>
       <h1 className={classes.root}>Todo list</h1>
       <ul>
-        {todos.map((todo) => {
+        {isLoading && 'loading...'}
+        {data?.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
         })}
       </ul>
