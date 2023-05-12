@@ -1,4 +1,3 @@
-import theme from '../../providers/theme-provider'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
 
@@ -10,10 +9,10 @@ export const RootWrapper = styled('div')({
   borderBottom: '1px solid #E0E0E0',
 })
 
-export const Title = styled(Typography)({
+export const Title = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
   paddingLeft: theme.spacing(1),
   fontWeight: 400,
   fontSize: theme.spacing(3),
   textTransform: 'capitalize',
-})
+}))
