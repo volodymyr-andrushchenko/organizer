@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import * as classes from './Todo.module.scss'
-import { useMutationToPostTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
+import { useCreateTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
 import { useFetchTodos } from '@/modules/todo/hooks/useFetchTodos'
 
 type AddTodoFormValues = {
@@ -12,10 +12,10 @@ function Todo() {
 
   const todoList = useFetchTodos()
 
-  const mutation = useMutationToPostTodo()
+  const {mutate: todoCreate} = useCreateTodo()
 
   const onSubmit = handleSubmit(({ text }) => {
-    mutation.mutate({
+    todoCreate({
       text,
     })
 
