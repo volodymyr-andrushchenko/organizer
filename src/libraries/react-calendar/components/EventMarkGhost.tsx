@@ -1,6 +1,6 @@
 import React, { memo, useContext } from "react"
 import { format } from "date-fns"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 
 const styles = {
     display: "inline-block",

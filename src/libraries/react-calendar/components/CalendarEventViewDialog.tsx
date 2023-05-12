@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import clsx from "clsx"
 import format from "date-fns/format"

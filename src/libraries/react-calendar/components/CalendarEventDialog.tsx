@@ -1,5 +1,5 @@
 import React, { useContext, useState, useMemo, useRef, useEffect } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import clsx from "clsx"
 import Slide from "@material-ui/core/Slide"

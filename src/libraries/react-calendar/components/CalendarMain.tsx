@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import { styled } from '@mui/system'
 import getSelectedWeekIndex from "../common/getSelectedWeekIndex"
 import CalendarLayoutMonth from "./CalendarLayoutMonth"
@@ -29,11 +29,11 @@ function CalendarMain({ runAnimation }: CalendarMainProps) {
 
     return (
         <MainCalendarWrapper>
-            {layout === "month" && <CalendarLayoutMonth weeks={weeks} runAnimation={runAnimation} />}
+            {/* {layout === "month" && <CalendarLayoutMonth weeks={weeks} runAnimation={runAnimation} />}
 
             {(layout === "week" || layout === "day") && (
                 <CalendarLayoutDayWeek selectedWeekIndex={selectedWeekIndex} selectedWeek={selectedWeek} />
-            )}
+            )} */}
         </MainCalendarWrapper>
     )
 }

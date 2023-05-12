@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import { makeStyles, Theme } from "@material-ui/core/styles"

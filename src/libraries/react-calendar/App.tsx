@@ -1,5 +1,5 @@
 import Calendar from "./components/Calendar"
-import { CalendarContextProvider } from "./common/CalendarContext"
+import { CalendarContextProvider } from "./providers/calendar-context/CalendarContext"
 
 function App() {
     return (

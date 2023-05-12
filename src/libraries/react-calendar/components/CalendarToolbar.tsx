@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { CalendarContext } from '../common/CalendarContext'
+import { CalendarContext } from '../providers/calendar-context/CalendarContext'
 import { styled } from '@mui/system'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
@@ -14,7 +14,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import Select from 'react-select'
 import format from 'date-fns/format'
 import { createTheme } from '@mui/system'
-import { Layout } from '../common/CalendarContext'
+import { Layout } from '../providers/calendar-context/CalendarContext'
 
 const theme = createTheme()
 

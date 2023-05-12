@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import { styled } from '@mui/system'
 import { format, getMonth, addMonths, subMonths } from "date-fns"
 import Grid from "@mui/material/Grid"
