@@ -1,9 +1,7 @@
 import { useContext } from 'react'
 import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
-import { styled } from '@mui/system'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import TodayIcon from '@mui/icons-material/Today'
 import ViewWeekIcon from '@mui/icons-material/ViewWeek'
@@ -13,26 +11,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import Select from 'react-select'
 import format from 'date-fns/format'
-import { createTheme } from '@mui/system'
 import { Layout } from '../../providers/calendar-context/CalendarContext.type'
-
-const theme = createTheme()
-
-const RootWrapper = styled('div')({
-  flexGrow: 1,
-  position: 'fixed',
-  backgroundColor: 'white',
-  width: '100%',
-  borderBottom: '1px solid #E0E0E0',
-})
-
-const Title = styled(Typography)({
-  flexGrow: 1,
-  paddingLeft: theme.spacing(1),
-  fontWeight: 400,
-  fontSize: theme.spacing(3),
-  textTransform: 'capitalize',
-})
+import { RootWrapper, Title } from './CalendarToolbar.styled'
 
 const languageOptions = [
   {

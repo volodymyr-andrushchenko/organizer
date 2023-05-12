@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react'
-import { styled } from '@mui/system'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
   addMonths,
@@ -15,12 +14,7 @@ import CalendarDrawer from '../drawer/CalendarDrawer'
 import CalendarMain from '../main/CalendarMain'
 import CalendarEventDialog from '../CalendarEventDialog'
 import CalendarEventViewDialog from '../CalendarEventViewDialog'
-
-const RootWrapper = styled('div')({
-  display: 'flex',
-  height: '100%',
-  width: '100%',
-})
+import { RootWrapper } from './Calendar.styled'
 
 function Calendar() {
   const [open, setOpen] = useState(true)

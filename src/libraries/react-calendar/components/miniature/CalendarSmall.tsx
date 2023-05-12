@@ -1,75 +1,19 @@
 import { useState, useContext } from 'react'
 import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
-import { styled } from '@mui/system'
 import { format, getMonth, addMonths, subMonths } from 'date-fns'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import Typography, { TypographyProps } from '@mui/material/Typography'
-import { lightBlue } from '@mui/material/colors'
+import {
+  Section,
+  Title,
+  Navigation,
+  DayHeader,
+  Day,
+} from './CalendarSmall.styled'
 import { getDatesToDisplay } from '../../utils'
-
-const Section = styled('section')({
-  minHeight: 264,
-  minWidth: 240,
-  background: 'white',
-})
-
-const Title = styled(Typography)({
-  marginLeft: 8,
-  textTransform: 'capitalize',
-})
-
-const Navigation = styled(Grid)({
-  marginRight: 4,
-})
-
-const DayHeader = styled(Typography)({
-  textAlign: 'center',
-  fontSize: 12,
-  color: lightBlue[800],
-  lineHeight: '26px',
-  padding: 2,
-  borderColor: 'white',
-  borderStyle: 'solid',
-  textTransform: 'capitalize',
-  background: 'white',
-  height: 34.3,
-  width: 34.3,
-})
-
-interface StyledDayProps extends TypographyProps {
-  selected?: boolean
-  today?: boolean
-  isCurrentMonth?: boolean
-}
-
-const Day = styled(Typography, {
-  shouldForwardProp: (propName) =>
-    propName !== 'selected' &&
-    propName !== 'today' &&
-    propName !== 'isCurrentMonth',
-})<StyledDayProps>(({ selected, today, isCurrentMonth }) => ({
-  textAlign: 'center',
-  fontSize: 12,
-  cursor: 'pointer',
-  borderRadius: '50%',
-  border: '1px solid white',
-  lineHeight: '26px',
-  padding: 4,
-  height: 34.3,
-  width: 34.3,
-
-  color: selected || today ? 'white' : !isCurrentMonth ? '#888' : 'black',
-
-  background: selected ? lightBlue[500] : today ? lightBlue[700] : 'white',
-
-  '&:hover': {
-    opacity: 0.8,
-  },
-}))
 
 function CalendarSmall() {
   const { stateCalendar, setStateCalendar } = useContext(CalendarContext)

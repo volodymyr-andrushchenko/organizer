@@ -1,18 +1,10 @@
 import { useContext } from 'react'
 import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
-import { styled } from '@mui/system'
 import getSelectedWeekIndex from '../../common/getSelectedWeekIndex'
 import CalendarLayoutMonth from '../CalendarLayoutMonth'
 import CalendarLayoutDayWeek from '../CalendarLayoutDayWeek'
 import { getDatesToDisplay } from '../../utils'
-
-const MainCalendarWrapper = styled('div')({
-  flexGrow: 1,
-  height: '100%',
-  width: '100%',
-  minWidth: 1000,
-  marginTop: 64,
-})
+import { MainCalendarWrapper } from './CalendarMain.styled'
 
 interface CalendarMainProps {
   runAnimation: boolean
