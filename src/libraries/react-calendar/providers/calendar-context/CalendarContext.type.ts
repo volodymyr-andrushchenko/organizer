@@ -48,5 +48,5 @@ export type CalendarState = {
 
 export type CalendarContextType = {
   stateCalendar: CalendarState
-  setStateCalendar: React.Dispatch<React.SetStateAction<CalendarState>>
+  setStateCalendar: (newState: Partial<CalendarState>) => void
 }

@@ -33,7 +33,7 @@ function CalendarSmall() {
   }
 
   function selectDate(newDate: Date) {
-    setStateCalendar({ ...stateCalendar, selectedDate: newDate })
+    setStateCalendar({ selectedDate: newDate })
     setSelectedInternalDate(newDate)
   }
 

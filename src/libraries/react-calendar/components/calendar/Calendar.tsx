@@ -30,7 +30,7 @@ function Calendar() {
   const goToToday = () => {
     setRunAnimation(false)
     const newDate = new Date()
-    setStateCalendar({ ...stateCalendar, selectedDate: newDate })
+    setStateCalendar({ selectedDate: newDate })
   }
 
   const next = () => {
@@ -51,7 +51,7 @@ function Calendar() {
         newDate = addMonths(stateCalendar.selectedDate, 1)
         break
     }
-    setStateCalendar({ ...stateCalendar, selectedDate: newDate })
+    setStateCalendar({ selectedDate: newDate })
   }
 
   const previous = () => {
@@ -72,28 +72,22 @@ function Calendar() {
         newDate = subMonths(stateCalendar.selectedDate, 1)
         break
     }
-    setStateCalendar({ ...stateCalendar, selectedDate: newDate })
+    setStateCalendar({ selectedDate: newDate })
   }
 
   return (
-    <CalendarContext.Provider value={{ stateCalendar, setStateCalendar }}>
-      <RootWrapper>
-        <CssBaseline />
+    <RootWrapper>
+      <CssBaseline />
 
-        <CalendarToolbar
-          goToToday={goToToday}
-          next={next}
-          previous={previous}
-        />
+      <CalendarToolbar goToToday={goToToday} next={next} previous={previous} />
 
-        <CalendarDrawer />
+      <CalendarDrawer />
 
-        <CalendarMain runAnimation={runAnimation} />
-        {/*
+      <CalendarMain runAnimation={runAnimation} />
+      {/*
                 <CalendarEventDialog />
                 <CalendarEventViewDialog /> */}
-      </RootWrapper>
-    </CalendarContext.Provider>
+    </RootWrapper>
   )
 }
 

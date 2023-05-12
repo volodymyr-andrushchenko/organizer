@@ -28,8 +28,14 @@ export function CalendarContextProvider({ children }: { children: ReactNode }) {
   const [stateCalendar, setStateCalendar] =
     useState<CalendarState>(initialCalendarState)
 
+  function setStateCalendarHandler(newState: Partial<CalendarState>) {
+    setStateCalendar({ ...stateCalendar, ...newState })
+  }
+
   return (
-    <CalendarContext.Provider value={{ stateCalendar, setStateCalendar }}>
+    <CalendarContext.Provider
+      value={{ stateCalendar, setStateCalendar: setStateCalendarHandler }}
+    >
       {children}
     </CalendarContext.Provider>
   )

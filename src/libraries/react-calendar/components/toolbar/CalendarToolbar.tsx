@@ -32,7 +32,7 @@ function CalendarToolbar({ goToToday, next, previous }: CalendarToolbarProps) {
   const { selectedDate, layout } = stateCalendar
 
   const setLayout = (layout: Layout) => {
-    setStateCalendar({ ...stateCalendar, layout })
+    setStateCalendar({ layout })
   }
 
   const showMonthsAndYears = format(selectedDate, 'MMMM YYY')
