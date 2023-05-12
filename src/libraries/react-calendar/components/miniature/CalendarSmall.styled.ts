@@ -33,9 +33,53 @@ export const DayHeader = styled(Typography)({
 })
 
 interface StyledDayProps extends TypographyProps {
-  selected?: boolean
-  today?: boolean
-  isCurrentMonth?: boolean
+  selected: boolean
+  today: boolean
+  isCurrentMonth: boolean
+}
+
+type ElementColors = {
+  text: string
+  background: string
+}
+
+const colors = {
+  selected: {
+    text: 'white',
+    background: lightBlue[500],
+  },
+  today: {
+    text: 'white',
+    background: lightBlue[700],
+  },
+  notCurrentMonth: {
+    text: '#888',
+    background: 'white',
+  },
+  default: {
+    text: 'black',
+    background: 'white',
+  },
+}
+
+function getDateStyle(
+  isSelected: boolean,
+  isToday: boolean,
+  isCurrentMonth: boolean
+): ElementColors {
+  if (isSelected) {
+    return colors.selected
+  }
+
+  if (!isCurrentMonth) {
+    return colors.notCurrentMonth
+  }
+
+  if (isToday) {
+    return colors.today
+  }
+
+  return colors.default
 }
 
 export const Day = styled(Typography, {
@@ -54,9 +98,9 @@ export const Day = styled(Typography, {
   height: 34.3,
   width: 34.3,
 
-  color: selected || today ? 'white' : !isCurrentMonth ? '#888' : 'black',
+  color: getDateStyle(selected, today, isCurrentMonth).text,
 
-  background: selected ? lightBlue[500] : today ? lightBlue[700] : 'white',
+  background: getDateStyle(selected, today, isCurrentMonth).background,
 
   '&:hover': {
     opacity: 0.8,
