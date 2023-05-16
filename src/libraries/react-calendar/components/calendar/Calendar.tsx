@@ -10,20 +10,14 @@ import {
 } from 'date-fns'
 import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
 import CalendarToolbar from '../toolbar/CalendarToolbar'
-import CalendarDrawer from '../drawer/CalendarDrawer'
 import CalendarMain from '../main/CalendarMain'
 import CalendarEventDialog from '../CalendarEventDialog'
 import CalendarEventViewDialog from '../CalendarEventViewDialog'
 import { RootWrapper } from './Calendar.styled'
+import CalendarSmall from '../miniature/CalendarSmall'
 
 function Calendar() {
-  const [open, setOpen] = useState(true)
-
   const { stateCalendar, setStateCalendar } = useContext(CalendarContext)
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
 
   const [runAnimation, setRunAnimation] = useState(true)
 
@@ -35,7 +29,7 @@ function Calendar() {
 
   const next = () => {
     setRunAnimation(false)
-    let newDate
+    let newDate: Date
 
     switch (stateCalendar.layout) {
       case 'week':
@@ -81,7 +75,7 @@ function Calendar() {
 
       <CalendarToolbar goToToday={goToToday} next={next} previous={previous} />
 
-      <CalendarDrawer />
+      <CalendarSmall />
 
       <CalendarMain runAnimation={runAnimation} />
       {/*

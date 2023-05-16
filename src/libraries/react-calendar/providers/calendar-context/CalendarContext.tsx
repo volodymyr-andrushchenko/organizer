@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useState, useCallback } from 'react'
 import type { CalendarState, CalendarContextType } from './CalendarContext.type'
 
 const initialCalendarState: CalendarState = {
@@ -28,9 +28,12 @@ export function CalendarContextProvider({ children }: { children: ReactNode }) {
   const [stateCalendar, setStateCalendar] =
     useState<CalendarState>(initialCalendarState)
 
-  function setStateCalendarHandler(newState: Partial<CalendarState>) {
-    setStateCalendar({ ...stateCalendar, ...newState })
-  }
+  const setStateCalendarHandler = useCallback(
+    (newState: Partial<CalendarState>) => {
+      setStateCalendar((prev): CalendarState => ({ ...prev, ...newState }))
+    },
+    []
+  )
 
   return (
     <CalendarContext.Provider

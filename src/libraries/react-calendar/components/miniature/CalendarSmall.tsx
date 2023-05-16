@@ -12,6 +12,7 @@ import {
   Navigation,
   DayHeader,
   Day,
+  CalendarSmallWrapper,
 } from './CalendarSmall.styled'
 import { getDatesToDisplay } from '../../utils'
 
@@ -38,21 +39,9 @@ function CalendarSmall() {
   }
 
   return (
-    <Section>
-      <Grid
-        container
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="center"
-        spacing={0}
-        wrap="nowrap"
-      >
-        <Grid item xs={8}>
-          <Title>{format(internalDate, 'MMMM yyyy')}</Title>
-        </Grid>
-        <Navigation
-          item
-          xs={4}
+    <CalendarSmallWrapper>
+      <Section>
+        <Grid
           container
           direction="row"
           justifyContent="flex-end"
@@ -60,37 +49,32 @@ function CalendarSmall() {
           spacing={0}
           wrap="nowrap"
         >
-          <Tooltip title="Previous Months">
-            <IconButton size="small" onClick={() => MoveMonths('<')}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Tooltip>{' '}
-          <Tooltip title="Next Months">
-            <IconButton size="small" onClick={() => MoveMonths('>')}>
-              <ChevronRightIcon />
-            </IconButton>
-          </Tooltip>
-        </Navigation>
-      </Grid>
+          <Grid item xs={8}>
+            <Title>{format(internalDate, 'MMMM yyyy')}</Title>
+          </Grid>
+          <Navigation
+            item
+            xs={4}
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            spacing={0}
+            wrap="nowrap"
+          >
+            <Tooltip title="Previous Months">
+              <IconButton size="small" onClick={() => MoveMonths('<')}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Tooltip>{' '}
+            <Tooltip title="Next Months">
+              <IconButton size="small" onClick={() => MoveMonths('>')}>
+                <ChevronRightIcon />
+              </IconButton>
+            </Tooltip>
+          </Navigation>
+        </Grid>
 
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        wrap="nowrap"
-      >
-        {weeks[0].map((weekDay: Date, index: number) => {
-          return (
-            <Grid item xs key={`small-calendar-column-header-${index}`}>
-              <DayHeader>{format(weekDay, 'dd')}</DayHeader>
-            </Grid>
-          )
-        })}
-      </Grid>
-
-      {weeks.map((week: Date[], weekIndex: number) => (
         <Grid
           container
           spacing={0}
@@ -98,40 +82,59 @@ function CalendarSmall() {
           justifyContent="center"
           alignItems="center"
           wrap="nowrap"
-          key={`small-calendar-line-${weekIndex}`}
         >
-          {week.map((day: Date, dayIndex: number) => {
-            const isToday =
-              format(day, 'ddMMyyyy') === format(new Date(), 'ddMMyyyy')
-
-            const isSelected =
-              selectedInternalDate !== null &&
-              !isToday &&
-              format(day, 'ddMMyyyy') ===
-                format(selectedInternalDate, 'ddMMyyyy')
-
-            const isCurrentMonth = getMonth(internalDate) === getMonth(day)
-
+          {weeks[0].map((weekDay: Date, index: number) => {
             return (
-              <Grid
-                item
-                xs
-                key={`small-calendar-line-${weekIndex}-column-${dayIndex}`}
-              >
-                <Day
-                  selected={isSelected}
-                  today={isToday}
-                  isCurrentMonth={isCurrentMonth}
-                  onClick={() => selectDate(day)}
-                >
-                  {day.getDate()}
-                </Day>
+              <Grid item xs key={`small-calendar-column-header-${index}`}>
+                <DayHeader>{format(weekDay, 'dd')}</DayHeader>
               </Grid>
             )
           })}
         </Grid>
-      ))}
-    </Section>
+
+        {weeks.map((week: Date[], weekIndex: number) => (
+          <Grid
+            container
+            spacing={0}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            wrap="nowrap"
+            key={`small-calendar-line-${weekIndex}`}
+          >
+            {week.map((day: Date, dayIndex: number) => {
+              const isToday =
+                format(day, 'ddMMyyyy') === format(new Date(), 'ddMMyyyy')
+
+              const isSelected =
+                selectedInternalDate !== null &&
+                !isToday &&
+                format(day, 'ddMMyyyy') ===
+                  format(selectedInternalDate, 'ddMMyyyy')
+
+              const isCurrentMonth = getMonth(internalDate) === getMonth(day)
+
+              return (
+                <Grid
+                  item
+                  xs
+                  key={`small-calendar-line-${weekIndex}-column-${dayIndex}`}
+                >
+                  <Day
+                    selected={isSelected}
+                    today={isToday}
+                    isCurrentMonth={isCurrentMonth}
+                    onClick={() => selectDate(day)}
+                  >
+                    {day.getDate()}
+                  </Day>
+                </Grid>
+              )
+            })}
+          </Grid>
+        ))}
+      </Section>
+    </CalendarSmallWrapper>
   )
 }
 
