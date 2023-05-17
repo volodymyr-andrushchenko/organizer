@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 import { format, differenceInMinutes, addMinutes } from "date-fns"
 import Grid from "@material-ui/core/Grid"

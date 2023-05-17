@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react"
-import { CalendarContext } from "../common/CalendarContext"
+import { CalendarContext } from "../providers/calendar-context/CalendarContext"
 
 import { useDragLayer } from "react-dnd"
 import EventMarkGhost from "./EventMarkGhost"

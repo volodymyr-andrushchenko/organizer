@@ -1,5 +1,9 @@
+import CalendarApp from '../../../libraries/react-calendar/App'
+
 function Calendar() {
-  return <h1>Calendar</h1>
+  return (
+    <CalendarApp />
+  )
 }
 
 export default Calendar

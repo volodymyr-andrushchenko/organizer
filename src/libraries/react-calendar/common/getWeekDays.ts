@@ -1,6 +1,6 @@
 import { startOfMonth, endOfMonth, startOfWeek, lastDayOfWeek, addDays, eachDay, differenceInDays } from "date-fns"
 
-function getWeekDays(selectedDate: any, size: number) {
+function getWeekDays(selectedDate: Date, size: number) {
     function getMonthWeeks(date: Date, { forceSixWeeks = false } = {}) {
         const monthFirstDate = startOfMonth(date)
         const monthLastDate = endOfMonth(date)
