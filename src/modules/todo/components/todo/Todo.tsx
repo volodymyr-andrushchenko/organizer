@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as classes from './Todo.module.scss'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { fetchTodos, postTodo } from '../../api'
+import { useCreateTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
+import { useFetchTodos } from '@/modules/todo/hooks/useFetchTodos'
 
 type AddTodoFormValues = {
   text: string
@@ -10,26 +10,12 @@ type AddTodoFormValues = {
 function Todo() {
   const { register, handleSubmit, reset } = useForm<AddTodoFormValues>()
 
-  const queryClient = useQueryClient()
+  const todoList = useFetchTodos()
 
-  const { isLoading, data } = useQuery({
-    queryKey: ['todos'],
-    queryFn: fetchTodos,
-  })
-
-  const mutation = useMutation({
-    mutationFn: postTodo,
-    onSuccess: () => {
-      queryClient
-        .invalidateQueries({ queryKey: ['todos'] })
-        .catch((err: unknown) => {
-          console.log(err)
-        })
-    },
-  })
+  const {mutate: todoCreate} = useCreateTodo()
 
   const onSubmit = handleSubmit(({ text }) => {
-    mutation.mutate({
+    todoCreate({
       text,
     })
 
@@ -40,8 +26,8 @@ function Todo() {
     <div>
       <h1 className={classes.root}>Todo list</h1>
       <ul>
-        {isLoading && 'loading...'}
-        {data?.map((todo) => {
+        {todoList.isLoading && 'loading...'}
+        {todoList.data?.map((todo) => {
           return <li key={todo.id}>{todo.text}</li>
         })}
       </ul>

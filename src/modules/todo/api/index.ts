@@ -1,14 +1,13 @@
-import { TodoItem } from '../components/todo/Todo.interface'
-
-export const fetchTodos = () => {
-  return fetch('api/todos').then(async (res) => {
-    const { todos } = (await res.json()) as { todos: TodoItem[] }
-    return todos
-  })
-}
+import type { TodoItem } from '@/modules/todo/types/todo.types'
 
 type PostTodoData = Omit<TodoItem, 'id'>
 
-export const postTodo = (data: PostTodoData) => {
-  return fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) })
-}
+export const TodoApiService = {
+  retrieve: async (): Promise<TodoItem[]> =>
+    fetch('api/todos')
+      .then((res) => res.json() as Promise<{ todos: TodoItem[] }>)
+      .then((res) => res.todos),
+
+  create: (data: PostTodoData) =>
+    fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) }),
+} as const

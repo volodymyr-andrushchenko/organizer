@@ -20,6 +20,10 @@
           "attributes": false
         }
       }
+    ],
+    "import/no-unresolved": [
+      "error",
+      { "ignore": ["^@"] }
     ]
   },
   "plugins": [
