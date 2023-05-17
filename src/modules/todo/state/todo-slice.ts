@@ -1,34 +1,50 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../../../store'
+import { RootState } from '@/store'
 import type { TodoItem } from '../types/todo.types'
 
+type TodoItemId = TodoItem['id']
+
 interface TodoState {
-  todos: Record<string, TodoItem>
+  todosMarkedForDeletion: TodoItemId[]
 }
 
 const initialState: TodoState = {
-  todos: {},
+  todosMarkedForDeletion: [],
 }
 
-const cartSlice = createSlice({
+const todosSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<TodoItem>) {
-      const { payload: newTodo } = action
+    markForDeletion(state, action: PayloadAction<TodoItemId>) {
+      const { payload: todoId } = action
 
-      state.todos[newTodo.id] = newTodo
+      if (!state.todosMarkedForDeletion.includes(todoId)) {
+        state.todosMarkedForDeletion.push(todoId)
+      }
     },
-    deleteTodo(state, action: PayloadAction<{ id: string }>) {
-      const idToDelete = action.payload.id
 
-      delete state.todos[idToDelete]
+    clearMarkedForDeletion(state, action: PayloadAction<TodoItemId>) {
+      const { payload: todoIdMarkedForDeletion } = action
+
+      state.todosMarkedForDeletion = state.todosMarkedForDeletion.filter(
+        (storedId) => todoIdMarkedForDeletion !== storedId
+      )
+    },
+
+    clearAllMarkedForDeletion(state) {
+      state.todosMarkedForDeletion = []
     },
   },
 })
 
-export const { addTodo, deleteTodo } = cartSlice.actions
+export const {
+  markForDeletion,
+  clearMarkedForDeletion,
+  clearAllMarkedForDeletion,
+} = todosSlice.actions
 
-export const selectTodosItems = (state: RootState) => state.todo.todos
+export const selectTodosMarkedForDeletion = (state: RootState) =>
+  state.todo.todosMarkedForDeletion
 
-export default cartSlice.reducer
+export default todosSlice.reducer

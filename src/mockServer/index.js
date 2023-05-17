@@ -20,5 +20,15 @@ export default () => createServer({
 
       return schema.todos.create({ text })
     })
+
+    this.post('/api/inform-mother', () => {
+      return 'Mom is proud'
+    })
+
+    this.delete('/api/todos/:id', (schema, request) => {
+      let id = request.params.id
+
+      return schema.todos.find(id).destroy()
+    })
   },
 })

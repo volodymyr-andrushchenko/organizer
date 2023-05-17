@@ -8,12 +8,12 @@ import { useCreateTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
 import Draggable from './components/draggable/Draggable'
 import classNames from 'classnames'
 
+const layout = [{ i: 'hint', x: 0, y: 0, w: 1, h: 1, static: true }]
+
 export default function Notes() {
   const [newTodoText, setNewTodoText] = useState<string | null>(null)
 
   const { mutate: todoCreate } = useCreateTodo()
-
-  const layout = [{ i: 'hint', x: 0, y: 0, w: 1, h: 1, static: true }]
 
   function onDrop(layout: Layout[], item: Layout) {
     if (newTodoText) {
