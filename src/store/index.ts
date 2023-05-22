@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 
-import todoSlice from '@/modules/todo/state/todo-slice'
-import displaySlice from '@/modules/info-display/state/info-display-slice'
+import todoSlice from '@/modules/todo/redux/todo-slice'
+import displaySlice from '@/modules/info-display/redux/info-display.slice'
 
 import mySaga from './sagas'
 

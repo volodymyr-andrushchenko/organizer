@@ -26,7 +26,6 @@ export default function Draggable({ onDragStart, onDragEnd }: DraggableProps) {
     <div
       className={classes.draggable}
       draggable={true}
-      data-value="1"
       onDragStart={onDragStartHandler}
       onDragEnd={onDragEndHandler}
     >

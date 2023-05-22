@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { markForDeletion, clearMarkedForDeletion } from '../../state/todo-slice'
+import { markForDeletion, clearMarkedForDeletion } from '../../redux/todo-slice'
 import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { TodoItem } from '../../types/todo.types'
+import { selectIsTodoMarkedForDeletion } from '../../redux/todo-slice.selectors'
 
 type DeleteCheckboxProps = {
   id: TodoItem['id']
@@ -10,9 +11,7 @@ type DeleteCheckboxProps = {
 const MarkForDeletionCheckbox = ({ id }: DeleteCheckboxProps) => {
   const dispatch = useAppDispatch()
 
-  const isMarkedForDeletion = useAppSelector((state) =>
-    state.todo.todosMarkedForDeletion.includes(id)
-  )
+  const isMarkedForDeletion = useAppSelector(selectIsTodoMarkedForDeletion(id))
 
   const onChange = () => {
     if (isMarkedForDeletion) {

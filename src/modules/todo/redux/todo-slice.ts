@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '@/store'
-import type { TodoItem } from '../types/todo.types'
-
-type TodoItemId = TodoItem['id']
+import type { TodoItemId } from '../types/todo.types'
 
 interface TodoState {
   todosMarkedForDeletion: TodoItemId[]
@@ -43,8 +40,5 @@ export const {
   clearMarkedForDeletion,
   clearAllMarkedForDeletion,
 } = todosSlice.actions
-
-export const selectTodosMarkedForDeletion = (state: RootState) =>
-  state.todo.todosMarkedForDeletion
 
 export default todosSlice.reducer

@@ -12,7 +12,7 @@ function Todo() {
       <h1 className={classes.root}>Todo list</h1>
       {todoList.isLoading && 'loading...'}
       {todoList.data && <TodoList items={todoList.data} />}
-      <DeleteMarkedTodos />
+      {/* <DeleteMarkedTodos /> // deleted this bc it needs to be in sync with layout */}
 
       <Notes />
 

@@ -1,13 +1,17 @@
 .grid {
-    border: 1px solid black;
-    margin-top: 20px;
-    width: 600px;
+  border: 1px solid black;
+  margin-top: 20px;
+  width: 600px;
 }
 
 .hint {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .hintContent {
-    padding: 20px;
+  padding: 20px;
+}
+
+.gridItem {
+  border: 1px solid green;
 }

@@ -3,8 +3,8 @@ import axios from 'axios'
 import type { TodoItem } from '@/modules/todo/types/todo.types'
 import { queryClient } from '@/providers/ReactQueryProvider'
 import { FETCH_TODO_LIST_QUERY_KEY } from '@/modules/todo/hooks/useFetchTodos'
-import { setMessage } from '@/modules/info-display/state/info-display-slice'
-import { clearAllMarkedForDeletion } from '../state/todo-slice'
+import { setMessage } from '@/modules/info-display/redux/info-display.slice'
+import { clearAllMarkedForDeletion } from './todo-slice'
 
 type TodoItemId = TodoItem['id']
 
@@ -33,12 +33,12 @@ export const DELETE_TODOS_REQUESTED: DeleteTodosAction['type'] =
 export function* deleteTodos(action: DeleteTodosAction) {
   try {
     // inform mom
-    const momResponse: Awaited<ReturnType<typeof postCompletion>> = yield call(
-      postCompletion
-    )
+    const momResponse = (yield call(postCompletion)) as Awaited<
+      ReturnType<typeof postCompletion>
+    >
 
     // display message
-    yield put(setMessage({ message: momResponse }))
+    yield put(setMessage(momResponse))
 
     // delete them from server
     yield all(
@@ -58,7 +58,7 @@ export function* deleteTodos(action: DeleteTodosAction) {
 
     // clear message after one second
     yield delay(5000)
-    yield put(setMessage({ message: '' }))
+    yield put(setMessage(''))
   } catch (err) {
     console.error(err)
   }

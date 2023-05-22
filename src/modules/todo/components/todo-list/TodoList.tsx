@@ -1,9 +1,5 @@
-import { TodoItem } from '@/modules/todo/types/todo.types'
 import MarkForDeletionCheckbox from '../delete-checkbox/MarkForDeletionCheckbox'
-
-type TodoListProps = {
-  items: TodoItem[]
-}
+import { TodoListProps } from './TodoList.interface'
 
 export default function TodoList({ items }: TodoListProps) {
   return (

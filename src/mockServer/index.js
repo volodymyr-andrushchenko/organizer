@@ -1,34 +1,62 @@
 import { createServer, Model } from 'miragejs'
 
-export default () => createServer({
-  models: {
-    todo: Model,
-  },
+const MIRAGE_SERVER_LOCAL_STORAGE = 'mirage_server_local_storage'
 
-  seeds(server) {
-    server.create('todo', { text: 'Buy milk' })
-    server.create('todo', { text: 'Hug mom' })
-  },
+const saveData = (data) =>
+  localStorage.setItem(MIRAGE_SERVER_LOCAL_STORAGE, JSON.stringify(data))
 
-  routes() {
-    this.get('/api/todos', (schema) => {
-      return schema.todos.all()
-    })
+const loadData = () =>
+  JSON.parse(localStorage.getItem(MIRAGE_SERVER_LOCAL_STORAGE))
 
-    this.post('/api/todos', (schema, request) => {
-      const { text } = JSON.parse(request.requestBody)
+// grid components doesn't appear if it is empty so add smth
+const data = loadData()
+if (!data) {
+  saveData({
+    todos: { id: '1', text: 'elemens to keep grid not empty' },
+  })
+}
 
-      return schema.todos.create({ text })
-    })
+export default () => {
+  const server = createServer({
+    models: {
+      todo: Model,
+    },
 
-    this.post('/api/inform-mother', () => {
-      return 'Mom is proud'
-    })
+    seeds(server) {
+      server.db.loadData(loadData())
+    },
 
-    this.delete('/api/todos/:id', (schema, request) => {
-      let id = request.params.id
+    routes() {
+      this.get('/api/todos', (schema) => {
+        return schema.todos.all()
+      })
 
-      return schema.todos.find(id).destroy()
-    })
-  },
-})
+      this.post('/api/todos', (schema, request) => {
+        const { text } = JSON.parse(request.requestBody)
+
+        const output = schema.todos.create({ text })
+        const updateTodosBlobForLS = schema.todos
+          .all()
+          .models.map((item) => item.attrs)
+
+        saveData({
+          todos: updateTodosBlobForLS,
+        })
+
+        return output
+      })
+
+      this.post('/api/inform-mother', () => {
+        return 'Mom is proud'
+      })
+
+      this.delete('/api/todos/:id', (schema, request) => {
+        let id = request.params.id
+
+        return schema.todos.find(id).destroy()
+      })
+    },
+  })
+
+  return server
+}

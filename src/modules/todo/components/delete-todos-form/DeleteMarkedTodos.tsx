@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { selectTodosMarkedForDeletion } from '../../state/todo-slice'
-import { DELETE_TODOS_REQUESTED } from '../../sagas'
+import { selectTodosMarkedForDeletion } from '../../redux/todo-slice.selectors'
+import { DELETE_TODOS_REQUESTED } from '../../redux/todo-slice.sagas.delete'
 
 export default function DeleteMarkedTodos() {
   const { handleSubmit } = useForm()

@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/store/hooks'
-import { selectDisplayMessage } from '../state/info-display-slice'
+import { selectDisplayMessage } from '../redux/info-display.selectors'
 
 const InfoDisplay = () => {
   const message = useAppSelector(selectDisplayMessage)

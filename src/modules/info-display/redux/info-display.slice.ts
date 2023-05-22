@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '@/store'
 
 interface DisplayState {
   message: string
@@ -13,14 +12,12 @@ const displaySlice = createSlice({
   name: 'display',
   initialState,
   reducers: {
-    setMessage(state, action: PayloadAction<DisplayState>) {
-      state.message = action.payload.message
+    setMessage(state, action: PayloadAction<string>) {
+      state.message = action.payload
     },
   },
 })
 
 export const { setMessage } = displaySlice.actions
-
-export const selectDisplayMessage = (state: RootState) => state.display.message
 
 export default displaySlice.reducer

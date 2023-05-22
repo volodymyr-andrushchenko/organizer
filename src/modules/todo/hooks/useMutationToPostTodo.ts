@@ -15,5 +15,8 @@ export function useCreateTodo() {
           console.log(err)
         })
     },
+    onMutate: (data) => {
+      console.log(data)
+    },
   })
 }

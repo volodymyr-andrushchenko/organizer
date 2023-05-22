@@ -1,4 +1,7 @@
-import { deleteTodos, DELETE_TODOS_REQUESTED } from '@/modules/todo/sagas'
+import {
+  deleteTodos,
+  DELETE_TODOS_REQUESTED,
+} from '@/modules/todo/redux/todo-slice.sagas.delete'
 import { takeEvery } from 'redux-saga/effects'
 
 function* mySaga() {
