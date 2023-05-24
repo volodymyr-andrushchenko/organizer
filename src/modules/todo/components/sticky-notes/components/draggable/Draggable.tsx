@@ -3,10 +3,9 @@ import * as classes from './Draggable.module.scss'
 
 type DraggableProps = {
   onDragStart: (text: string) => void
-  onDragEnd: () => void
 }
 
-export default function Draggable({ onDragStart, onDragEnd }: DraggableProps) {
+export default function Draggable({ onDragStart }: DraggableProps) {
   const [inputText, setInputTest] = useState('')
 
   function onDragStartHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -19,7 +18,6 @@ export default function Draggable({ onDragStart, onDragEnd }: DraggableProps) {
 
   function onDragEndHandler() {
     setInputTest('')
-    onDragEnd()
   }
 
   return (
@@ -28,6 +26,7 @@ export default function Draggable({ onDragStart, onDragEnd }: DraggableProps) {
       draggable={true}
       onDragStart={onDragStartHandler}
       onDragEnd={onDragEndHandler}
+      unselectable="on"
     >
       <input value={inputText} onChange={(e) => setInputTest(e.target.value)} />
       Droppable Element (Drag me!)

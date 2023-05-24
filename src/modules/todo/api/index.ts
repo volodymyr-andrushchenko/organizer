@@ -1,22 +1,6 @@
-import { Layout } from 'react-grid-layout'
 import type { TodoItem } from '@/modules/todo/types/todo.types'
+import type { Layout } from 'react-grid-layout'
 import axios from 'axios'
-
-type PostTodoData = Omit<TodoItem, 'id'>
-
-const LAYOUT_KEY = 'layout'
-
-const saveToLS = (data: Layout[]) => {
-  localStorage.setItem(LAYOUT_KEY, JSON.stringify(data))
-}
-
-const getFromLs = (): Layout[] | undefined => {
-  const storedLayout = localStorage.getItem(LAYOUT_KEY)
-
-  if (storedLayout) {
-    return JSON.parse(storedLayout) as Layout[]
-  }
-}
 
 export const TodoApiService = {
   retrieve: async (): Promise<TodoItem[]> =>
@@ -24,8 +8,15 @@ export const TodoApiService = {
       .then((res) => res.json() as Promise<{ todos: TodoItem[] }>)
       .then((res) => res.todos),
 
-  create: (data: PostTodoData) =>
+  create: (data: TodoItem) =>
     fetch('/api/todos', { method: 'POST', body: JSON.stringify(data) }),
-  saveLayout: (data: Layout[]) => saveToLS(data),
-  getLayout: () => getFromLs(),
 } as const
+
+export const TodoLayoutApiService = {
+  retrive: () =>
+    axios
+      .get<{ layouts: Layout[] }>('api/layouts')
+      .then(({ data }) => data.layouts),
+  create: (layout: Layout[]) =>
+    axios.post<Layout[]>('api/layouts', layout).then(({ data }) => data),
+}

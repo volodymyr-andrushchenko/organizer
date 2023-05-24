@@ -2,159 +2,128 @@ import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import GridLayout from 'react-grid-layout'
 import type { Layout } from 'react-grid-layout'
-import { useEffect, useRef, useState } from 'react'
-import { useCreateTodo } from '@/modules/todo/hooks/useMutationToPostTodo'
+import { useState } from 'react'
 import Draggable from './components/draggable/Draggable'
-import { useFetchTodos } from '../../hooks/useFetchTodos'
-import { TodoApiService } from '../../api'
+import {
+  useFetchTodos,
+  FETCH_TODO_LIST_QUERY_KEY,
+} from '../../hooks/useFetchTodos'
 import * as classes from './Notes.module.scss'
+import {
+  useFetchTodoLayouts,
+  FETCH_TODO_LAYOUTS_QUERY_KEY,
+} from '../../hooks/useFetchLayouts'
+import { useSaveLayout } from '../../hooks/useSaveLayout'
+import { v4 as uuid } from 'uuid'
 import { TodoItem } from '../../types/todo.types'
+import { useQueryClient, useMutation } from '@tanstack/react-query'
+import { TodoLayoutApiService, TodoApiService } from '../../api'
+
+type PostNoteData = { layout: Layout[]; todo: TodoItem }
 
 const GRID_WIDTH = 600
 const GRID_COLUMNS = 6
 const GRID_ROW_HEIGHT = 100
 
-export type LayoutWithData = Layout & {
-  text: string
-}
-
-function combineTodoItemsWithLayouts(
-  layouts: Layout[],
-  todos: TodoItem[],
-  addElementsWithoutLayout = false
-): LayoutWithData[] {
-  return todos.reduce<LayoutWithData[]>((prev, todoItem) => {
-    // look for todo among layout items
-    const layoutMatchingToTodoItem = layouts.find(
-      (savedLayout) => savedLayout.i === todoItem.id
-    )
-
-    // if it exists return it
-    if (layoutMatchingToTodoItem) {
-      return [...prev, { ...layoutMatchingToTodoItem, text: todoItem.text }]
-    }
-
-    // if addElementsWithoutLayout put them at the end else skip
-    return addElementsWithoutLayout
-      ? [
-          ...prev,
-          {
-            i: todoItem.id,
-            x: 0, // this is how i put it at the end
-            y: Infinity,
-            w: 1,
-            h: 1,
-            text: todoItem.text,
-          },
-        ]
-      : [...prev]
-  }, [])
-}
-
-const tempIdData: { id: string | null; text: string | null } = {
-  id: null,
-  text: null,
-}
-
 export default function Notes() {
-  const [newTodoText, setNewTodoText] = useState<string | null>(null)
+  const queryClient = useQueryClient()
+
+  const [newTodoText, setNewTodoText] = useState<string>('')
 
   const todos = useFetchTodos()
 
-  const [layout, setLayout] = useState<LayoutWithData[]>([])
+  const todoLayouts = useFetchTodoLayouts()
 
-  const { mutate: todoCreate } = useCreateTodo()
+  const { mutate: saveLayout } = useSaveLayout()
 
-  const temporaryIdDataRef = useRef(tempIdData)
+  // I save layout as a whole because adding element can push neighbouring notes
+  const addNote = useMutation({
+    mutationFn: ({ layout, todo }: PostNoteData) => {
+      return Promise.all([
+        TodoLayoutApiService.create(layout),
+        TodoApiService.create(todo),
+      ])
+    },
+    onMutate: async (data: PostNoteData) => {
+      setNewTodoText('')
 
-  // combine downloaded data about todos with data about about layout from local storage
-  useEffect(() => {
-    // data of course
-    if (todos.data) {
-      // check if anything is saved
-      const savedLayout = TodoApiService.getLayout() ?? []
+      await queryClient.cancelQueries()
 
-      // if optimistic ui happened i need to update
-      if (temporaryIdDataRef.current.id) {
-        const itemWithTempIdThatWasSavedInLS = savedLayout.find(
-          (item) => item.i === temporaryIdDataRef.current.id
+      const previousTodos = queryClient.getQueryData<TodoItem[]>([
+        FETCH_TODO_LIST_QUERY_KEY,
+      ])
+
+      if (previousTodos) {
+        queryClient.setQueryData<TodoItem[]>(
+          [FETCH_TODO_LIST_QUERY_KEY],
+          [...previousTodos, data.todo]
         )
-
-        const todoWithSameTextFromServer = todos.data.find(
-          (item) => item.text === temporaryIdDataRef.current.text
+      } else {
+        queryClient.setQueryData<TodoItem[]>(
+          [FETCH_TODO_LIST_QUERY_KEY],
+          [data.todo]
         )
-
-        // having same text as basis for comparison is error prone
-        if (itemWithTempIdThatWasSavedInLS && todoWithSameTextFromServer) {
-          // update temp id
-          itemWithTempIdThatWasSavedInLS.i = todoWithSameTextFromServer.id
-        }
-
-        // since i no langer need temp data i clear it and update local storage
-        TodoApiService.saveLayout(savedLayout)
-        temporaryIdDataRef.current.id = null
-        temporaryIdDataRef.current.text = null
       }
 
-      const newLayout = combineTodoItemsWithLayouts(
-        savedLayout,
-        todos.data,
-        true
+      queryClient.setQueriesData<Layout[]>(
+        [FETCH_TODO_LAYOUTS_QUERY_KEY],
+        data.layout
       )
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries().catch((err) => console.error(err))
+    },
+  })
 
-      setLayout(newLayout)
+  function onDrop(layout: Layout[]) {
+    if (!todos.data) {
+      return
     }
-  }, [todos.data])
 
-  function onDrop(layout: Layout[], item: Layout) {
-    // rearrendged items because dropping items make neighbour elements shift
-    if (todos.data && newTodoText) {
-      const rearrendgedLayout = combineTodoItemsWithLayouts(layout, todos.data)
+    // create todo
+    const todo: TodoItem = { id: uuid(), text: newTodoText }
 
-      const newLayoutItem: LayoutWithData = {
-        ...item,
-        text: newTodoText ?? '',
-      }
+    //update layout with correct todo id
+    const tempLayoutItemIndex = layout.findIndex(
+      (layoutItem) => !todos.data.find((todo) => todo.id === layoutItem.i)
+    )
 
-      temporaryIdDataRef.current = { id: item.i, text: newTodoText }
-
-      // I need to save passed layout as well so no prev unfortunately
-      const newLayout = [...rearrendgedLayout, newLayoutItem]
-      setLayout(newLayout)
-      TodoApiService.saveLayout(newLayout)
-
-      todoCreate({
-        text: newTodoText,
-      })
-    } else {
-      throw new Error('onDrop event triggered before todo.data was loaded')
+    if (tempLayoutItemIndex === -1) {
+      throw new Error('no temp item on drop')
     }
+
+    // don't forget this
+    layout[tempLayoutItemIndex].i = todo.id
+
+    addNote.mutate({ layout, todo: todo })
   }
 
   function onDragStart(text: string) {
     setNewTodoText(text)
   }
 
-  function onDragEnd() {
-    setNewTodoText(null)
-  }
-
-  function saveLayout() {
-    setLayout(layout)
-  }
-
   function onLayoutChange(layout: Layout[]) {
-    TodoApiService.saveLayout(layout)
+    if (!todos.data) {
+      return
+    }
+
+    const notTemporaryItems = layout.filter(
+      (item) => !!todos.data.find((todo: TodoItem) => todo.id === item.i)
+    )
+
+    saveLayout(notTemporaryItems)
   }
+
+  const isAllDataIsFetched = todos.data && todoLayouts.data
 
   return (
     <div style={{ marginTop: 20 }}>
-      <Draggable onDragStart={onDragStart} onDragEnd={onDragEnd} />
-      {todos.data && (
+      <Draggable onDragStart={onDragStart} />
+      {isAllDataIsFetched && (
         <GridLayout
           className="layout"
           style={{ border: '1px solid black', width: GRID_WIDTH }}
-          layout={layout}
+          layout={todoLayouts.data}
           cols={GRID_COLUMNS}
           rowHeight={GRID_ROW_HEIGHT}
           width={GRID_WIDTH}
@@ -164,17 +133,13 @@ export default function Notes() {
           onLayoutChange={onLayoutChange}
           droppingItem={{ w: 1, h: 1, i: `${new Date().getTime()}` }}
         >
-          {layout.map((item) => (
+          {todoLayouts.data.map((item) => (
             <div className={classes.gridItem} key={item.i}>
-              {item.text}
+              {todos.data?.find((todo) => todo.id === item.i)?.text}
             </div>
           ))}
         </GridLayout>
       )}
-      <button onClick={saveLayout}>save</button>
-      <div style={{ marginTop: 20 }}>
-        Text of todo that will be added: {newTodoText}
-      </div>
     </div>
   )
 }

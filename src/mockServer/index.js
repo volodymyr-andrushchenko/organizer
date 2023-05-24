@@ -1,18 +1,33 @@
 import { createServer, Model } from 'miragejs'
+import { produce } from 'immer'
 
 const MIRAGE_SERVER_LOCAL_STORAGE = 'mirage_server_local_storage'
 
 const saveData = (data) =>
   localStorage.setItem(MIRAGE_SERVER_LOCAL_STORAGE, JSON.stringify(data))
 
+// update callback gets state variable
+const updateData = (updateCallback) => {
+  const state = loadData()
+
+  const newState = produce(state, updateCallback)
+
+  saveData(newState)
+}
+
 const loadData = () =>
   JSON.parse(localStorage.getItem(MIRAGE_SERVER_LOCAL_STORAGE))
 
-// grid components doesn't appear if it is empty so add smth
+const serializeModelItems = (items) =>
+  items.all().models.map((item) => item.attrs)
+
+// initial structure
 const data = loadData()
+
 if (!data) {
   saveData({
-    todos: { id: '1', text: 'elemens to keep grid not empty' },
+    todos: [],
+    layouts: [],
   })
 }
 
@@ -31,23 +46,32 @@ export default () => {
         return schema.todos.all()
       })
 
+      this.get('/api/layouts', () => {
+        const { layouts } = loadData()
+        return { layouts }
+      })
+
       this.post('/api/todos', (schema, request) => {
-        const { text } = JSON.parse(request.requestBody)
+        const { text, id } = JSON.parse(request.requestBody)
 
-        const output = schema.todos.create({ text })
-        const updateTodosBlobForLS = schema.todos
-          .all()
-          .models.map((item) => item.attrs)
+        const output = schema.todos.create({ text, id })
 
-        saveData({
-          todos: updateTodosBlobForLS,
+        updateData((state) => {
+          state.todos = serializeModelItems(schema.todos)
         })
 
         return output
       })
 
-      this.post('/api/inform-mother', () => {
-        return 'Mom is proud'
+      this.post('/api/layouts', (schema, request) => {
+        const layouts = JSON.parse(request.requestBody)
+        console.log(layouts)
+
+        updateData((state) => {
+          state.layouts = layouts
+        })
+
+        return layouts
       })
 
       this.delete('/api/todos/:id', (schema, request) => {
