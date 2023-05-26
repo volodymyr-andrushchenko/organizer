@@ -1,39 +1,30 @@
-import styled from 'styled-components'
 import logo from '@/assets/logo/logo.svg'
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const LinksList = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-`
+import { HeaderWrapper, LinksList, LinkItem, Link } from './Header.styled'
 
 const Header = () => {
   return (
-    <Row>
+    <HeaderWrapper>
       <img src={logo} alt="logo" />
       <LinksList>
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Find a doctor</a>
-        </li>
-        <li>
-          <a href="#">Apps</a>
-        </li>
-        <li>
-          <a href="#">Testimonials</a>
-        </li>
-        <li>
-          <a href="#">About us</a>
-        </li>
+        <LinkItem>
+          <Link $active href="#">
+            Home
+          </Link>
+        </LinkItem>
+        <LinkItem>
+          <Link href="#">Find Link doctor</Link>
+        </LinkItem>
+        <LinkItem>
+          <Link href="#">Apps</Link>
+        </LinkItem>
+        <LinkItem>
+          <Link href="#">Testimonials</Link>
+        </LinkItem>
+        <LinkItem>
+          <Link href="#">About us</Link>
+        </LinkItem>
       </LinksList>
-    </Row>
+    </HeaderWrapper>
   )
 }
 
