@@ -25,6 +25,8 @@ export const FooterWrapper = styled.footer`
 export const Container = styled(ContainerBase)`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 48px;
 `
 
 export const FooterInfo = styled.div``
@@ -36,6 +38,14 @@ export const FooterNav = styled.nav`
   max-width: 682px;
   padding-right: 50px;
   transform: translateY(-7px);
+  gap: 30px;
+
+  @media (max-width: 550px) {
+    padding: 0;
+    transform: none;
+    place-content: center;
+    flex-wrap: wrap;
+  }
 `
 
 export const Links = styled.ul``

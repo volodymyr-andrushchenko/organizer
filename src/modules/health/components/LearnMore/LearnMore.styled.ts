@@ -9,6 +9,9 @@ import downArrow from '@/assets/ui/down-arrow.svg'
 
 export const Wrapper = styled.section`
   margin-top: 222px;
+  @media (max-width: 1190px) {
+    margin-top: 50px;
+  }
 `
 
 export const SectionHeader = SectionHeaderBase
@@ -47,6 +50,15 @@ export const Block = styled.div`
   &:not(:first-child) {
     margin-top: 210px;
   }
+
+  @media (max-width: 1190px) {
+    padding: 220px 0 0;
+    background-size: 300px;
+
+    &:not(:first-child) {
+      margin-top: 50px;
+    }
+  }
 `
 
 export const Content = styled.div`
@@ -58,6 +70,12 @@ export const LeadingProvidersBlock = styled(Block)`
   justify-content: flex-end;
   background-position: left center;
   padding-right: 83px;
+
+  @media (max-width: 1190px) {
+    background-position: top;
+    padding-right: 0;
+    justify-content: center;
+  }
 `
 
 export const AppsBlock = styled(Block)`
@@ -67,5 +85,11 @@ export const AppsBlock = styled(Block)`
 
   & ${Content} {
     max-width: 366px;
+  }
+
+  @media (max-width: 1190px) {
+    background-position: top;
+    padding-left: 0;
+    justify-content: center;
   }
 `

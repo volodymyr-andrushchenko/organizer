@@ -4,6 +4,8 @@ import RowBase from '../../styled-components/Row'
 export const HeaderWrapper = styled(RowBase)`
   padding: 56px 0;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 32px;
 `
 
 export const LinksList = styled.ul`
@@ -11,12 +13,17 @@ export const LinksList = styled.ul`
   justify-content: space-between;
   list-style: none;
   transform: translateY(5px);
-`
-export const LinkItem = styled.li`
-  &:not(:first-child) {
-    margin-left: 42px;
+  place-content: center;
+  flex-wrap: wrap;
+  gap: 42px;
+
+  @media (max-width: 750px) {
+    transform: none;
   }
 `
+
+export const LinkItem = styled.li``
+
 type LinkProps = {
   $active?: boolean
 }

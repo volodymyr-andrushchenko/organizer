@@ -9,6 +9,10 @@ const SectionHeader = styled.h2<Props>`
   font-size: 36px;
   line-height: 56px;
   color: ${(props) => (props.$inverse ? 'white' : 'black')};
+
+  @media (max-width: 450px) {
+    font-size: 28px;
+  }
 `
 
 export default SectionHeader

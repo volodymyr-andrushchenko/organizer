@@ -15,16 +15,32 @@ export const Wrapper = styled.section`
   background-size: contain;
   background-repeat: no-repeat;
   background-size: 693px 598px;
+
+  @media (max-width: 1000px) {
+    background-size: 400px;
+    background-position: top;
+  }
 `
 
 export const Content = styled.div`
   max-width: 445px;
   padding: 130px 0 180px;
+
+  @media (max-width: 1000px) {
+    padding-top: 400px;
+    margin: auto;
+    padding-bottom: 40px;
+  }
 `
 
 export const Button = styled(ButtonBase)`
   margin-top: 49px;
   padding: 16px 38px;
+
+  @media (max-width: 480px) {
+    display: block;
+    margin: 20px auto 0;
+  }
 `
 
 export const Title = styled.h1`

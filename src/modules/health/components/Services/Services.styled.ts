@@ -5,6 +5,10 @@ import SectionHeaderBase from '../../styled-components/SectionHeader'
 
 export const SectionHeader = styled(SectionHeaderBase)`
   margin-top: 168px;
+
+  @media (max-width: 715px) {
+    margin-top: 20px;
+  }
 `
 
 export const Button = styled(ButtonBase)`
@@ -14,6 +18,7 @@ export const Button = styled(ButtonBase)`
 export const Cards = styled.ul`
   list-style: none;
   display: flex;
+  place-content: center;
   gap: 37px 34px;
   flex-wrap: wrap;
   margin-top: 80px;
@@ -52,4 +57,8 @@ export const CenteredParagraph = styled(Paragraph)`
   margin-top: 33px;
   font-size: 18px;
   line-height: 30px;
+
+  @media (max-width: 715px) {
+    padding: 0;
+  }
 `

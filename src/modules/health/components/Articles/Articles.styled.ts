@@ -32,6 +32,8 @@ export const ArticlesList = styled.ul`
   display: flex;
   gap: 34px;
   margin-top: 78px;
+  flex-wrap: wrap;
+  place-content: center;
 `
 export const Article = styled.li`
   background: #ffffff;
