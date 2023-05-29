@@ -4,7 +4,7 @@ import dotImg from '@/assets/slider/dot.svg'
 import RowBase from '@/modules/health/styled-components/Row'
 
 export const Wrapper = styled(RowBase)`
-  max-width: 220px;
+  max-width: 335px;
   flex-grow: 1;
   margin: 47px auto 0;
 `

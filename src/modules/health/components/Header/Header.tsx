@@ -12,7 +12,7 @@ const Header = () => {
           </Link>
         </LinkItem>
         <LinkItem>
-          <Link href="#">Find Link doctor</Link>
+          <Link href="#">Find a doctor</Link>
         </LinkItem>
         <LinkItem>
           <Link href="#">Apps</Link>

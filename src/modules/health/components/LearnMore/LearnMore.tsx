@@ -4,13 +4,16 @@ import {
   Content,
   Paragraph,
   Button,
+  SectionHeader,
+  SectionHeaderUnderline,
+  DownloadButton,
+  Wrapper,
+  SectionHeaderApp,
 } from './LearnMore.styled'
-import SectionHeader from '../../styled-components/SectionHeader'
-import SectionHeaderUnderline from '../../styled-components/SectionHeaderUnderline'
 
 const LearnMore = () => {
   return (
-    <section>
+    <Wrapper>
       <LeadingProvidersBlock>
         <Content>
           <SectionHeader>Leading healthcare providers</SectionHeader>
@@ -25,17 +28,17 @@ const LearnMore = () => {
       </LeadingProvidersBlock>
       <AppsBlock>
         <Content>
-          <SectionHeader>Leading healthcare providers</SectionHeader>
+          <SectionHeaderApp>Download our mobile apps</SectionHeaderApp>
           <SectionHeaderUnderline />
           <Paragraph>
-            Trafalgar provides progressive, and affordable healthcare,
-            accessible on mobile and online for everyone. To us, it’s not just
-            work. We take pride in the solutions we deliver
+            Our dedicated patient engagement app and web portal allow you to
+            access information instantaneously (no tedeous form, long calls, or
+            administrative hassle) and securely
           </Paragraph>
-          <Button>Learn more</Button>
+          <DownloadButton>Download</DownloadButton>
         </Content>
       </AppsBlock>
-    </section>
+    </Wrapper>
   )
 }
 

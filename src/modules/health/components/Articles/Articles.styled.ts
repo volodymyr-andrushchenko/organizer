@@ -4,13 +4,15 @@ import SectionHeaderBase from '../../styled-components/SectionHeader'
 import SectionHeaderUnderlineBase from '../../styled-components/SectionHeaderUnderline'
 import ParagraphBase from '../../styled-components/Text'
 import ButtonBase from '../../styled-components/Button'
+import rightArrow from '@/assets/ui/arrow-right-sm.svg'
 
 export const Button = styled(ButtonBase)`
-  margin-top: 72px;
+  margin-top: 67px;
+  padding: 16px 65px;
 `
 
 export const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 220px;
 `
 
 export const Paragraph = styled(ParagraphBase)`
@@ -29,7 +31,7 @@ export const ArticlesList = styled.ul`
   list-style: none;
   display: flex;
   gap: 34px;
-  margin-top: 72px;
+  margin-top: 78px;
 `
 export const Article = styled.li`
   background: #ffffff;
@@ -47,7 +49,7 @@ export const ArticleImage = styled.img`
 `
 
 export const ArticleContent = styled.div`
-  padding: 35px;
+  padding: 20px 40px 42px 35px;
 `
 
 export const ArticleHeader = styled.h3`
@@ -60,4 +62,14 @@ export const Link = styled.a`
   text-decoration: none;
   color: #4089ed;
   margin-top: 25px;
+  max-width: max-content;
+  padding-right: 29px;
+
+  background-image: url('${rightArrow}');
+  background-repeat: no-repeat;
+  background-position: right center;
+
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 28px;
 `

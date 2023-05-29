@@ -38,10 +38,10 @@ const Articles = () => {
           </ArticleContent>
         </Article>
         <Article>
-          <ArticleImage src={bloodImg} />
+          <ArticleImage src={microscopeImg} />
           <ArticleContent>
             <ArticleHeader>
-              Disease detection, check up in the laboratory
+              Herbal medicines that are safe for consumption
             </ArticleHeader>
             <Paragraph>
               In this case, the role of the health laboratory is very important
@@ -51,11 +51,9 @@ const Articles = () => {
           </ArticleContent>
         </Article>
         <Article>
-          <ArticleImage src={bloodImg} />
+          <ArticleImage src={spaImg} />
           <ArticleContent>
-            <ArticleHeader>
-              Disease detection, check up in the laboratory
-            </ArticleHeader>
+            <ArticleHeader>Natural care for healthy facial skin</ArticleHeader>
             <Paragraph>
               In this case, the role of the health laboratory is very important
               to do a disease detection...
@@ -65,7 +63,7 @@ const Articles = () => {
         </Article>
       </ArticlesList>
       <CenteredColumn>
-        <Button>View more</Button>
+        <Button>View all</Button>
       </CenteredColumn>
     </Wrapper>
   )

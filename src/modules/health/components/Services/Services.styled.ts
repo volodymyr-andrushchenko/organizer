@@ -4,7 +4,7 @@ import ButtonBase from '../../styled-components/Button'
 import SectionHeaderBase from '../../styled-components/SectionHeader'
 
 export const SectionHeader = styled(SectionHeaderBase)`
-  margin-top: 150px;
+  margin-top: 168px;
 `
 
 export const Button = styled(ButtonBase)`
@@ -29,7 +29,7 @@ export const Card = styled.li`
 `
 
 export const ImageContainer = styled.div`
-  min-height: 187px;
+  min-height: 166px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,4 +50,6 @@ export const CenteredParagraph = styled(Paragraph)`
   text-align: center;
   padding: 0 84px;
   margin-top: 33px;
+  font-size: 18px;
+  line-height: 30px;
 `

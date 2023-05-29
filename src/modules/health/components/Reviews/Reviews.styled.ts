@@ -9,15 +9,15 @@ export const SectionHeader = SectionHeaderBase
 export const Wrapper = styled.div`
   background: linear-gradient(208.18deg, #67c3f3 9.05%, #5a98f2 76.74%);
   border-radius: 24px;
-  padding: 65px 120px 90px;
-  margin-top: 250px;
+  padding: 61px 120px 79px;
+  margin-top: 259px;
 `
 export const CenteredColumn = CenteredColumnBase
 
 export const SectionHeaderUnderline = SectionHeaderUnderlineBase
 
 export const Row = styled(RowBase)`
-  margin-top: 77px;
+  margin-top: 60px;
 `
 
 export const CustomerImg = styled.img`
@@ -34,12 +34,13 @@ export const CustomerInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 `
 
 export const CustomerName = styled.h3`
   font-weight: 700;
   font-size: 22px;
-  line-height: 48px;
+  line-height: 32px;
   color: white;
 `
 

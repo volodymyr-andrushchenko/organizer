@@ -8,3 +8,6 @@ export const Container = styled.div`
   padding: 0 20px;
   max-width: 1160px;
 `
+export const ContainerBigger = styled(Container)`
+  max-width: 1260px;
+`

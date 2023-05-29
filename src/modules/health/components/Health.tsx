@@ -6,16 +6,22 @@ import Hero from './Hero/Hero'
 import LearnMore from './LearnMore/LearnMore'
 import Reviews from './Reviews/Reviews'
 import Services from './Services/Services'
-import { Root, Container } from './Health.styled'
+import { Root, Container, ContainerBigger } from './Health.styled'
 
 const Health = () => {
   return (
     <Root>
-      <Container>
+      <ContainerBigger>
         <Header />
         <Hero />
+      </ContainerBigger>
+      <Container>
         <Services />
+      </Container>
+      <ContainerBigger>
         <LearnMore />
+      </ContainerBigger>
+      <Container>
         <Reviews />
         <Articles />
       </Container>

@@ -19,16 +19,16 @@ export const Wrapper = styled.section`
 
 export const Content = styled.div`
   max-width: 445px;
-  padding: 150px 0;
+  padding: 130px 0 180px;
 `
 
 export const Button = styled(ButtonBase)`
-  margin-top: 45px;
+  margin-top: 49px;
+  padding: 16px 38px;
 `
 
 export const Title = styled.h1`
   font-weight: 700;
-  font-size: 36px;
+  font-size: 48px;
   line-height: 56px;
-  max-width: 350px;
 `

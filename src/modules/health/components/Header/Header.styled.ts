@@ -2,17 +2,19 @@ import styled from 'styled-components/macro'
 import RowBase from '../../styled-components/Row'
 
 export const HeaderWrapper = styled(RowBase)`
-  padding: 70px 0;
+  padding: 56px 0;
+  align-items: center;
 `
 
 export const LinksList = styled.ul`
   display: flex;
   justify-content: space-between;
   list-style: none;
+  transform: translateY(5px);
 `
 export const LinkItem = styled.li`
   &:not(:first-child) {
-    margin-left: 40px;
+    margin-left: 42px;
   }
 `
 type LinkProps = {

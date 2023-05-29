@@ -17,31 +17,31 @@ const Footer = () => {
           <img src={logoWhite} alt="logo" />
           <Paragraph>
             Trafalgar provides progressive, and affordable healthcare,
-            accessible on mobile and online for everyone
+            accessible on mobile and online for&nbsp;everyone
           </Paragraph>
           <Paragraph>©Trafalgar PTY LTD 2020. All rights reserved</Paragraph>
         </FooterInfo>
         <FooterNav>
           <Links>
             <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
+            <Link>About</Link>
+            <Link>Testimonials</Link>
+            <Link>Find a doctor</Link>
+            <Link>Apps</Link>
           </Links>
           <Links>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
+            <Link>Region</Link>
+            <Link>Indonesia</Link>
+            <Link>Singapore</Link>
+            <Link>Hongkong</Link>
+            <Link>Canada</Link>
           </Links>
           <Links>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
-            <Link>Company</Link>
+            <Link>Help</Link>
+            <Link>Help center</Link>
+            <Link>Contact support</Link>
+            <Link>Instructions</Link>
+            <Link>How it works</Link>
           </Links>
         </FooterNav>
       </Container>
