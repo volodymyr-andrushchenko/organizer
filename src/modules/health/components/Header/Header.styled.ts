@@ -35,4 +35,8 @@ export const Link = styled.a<LinkProps>`
   line-height: 23px;
   color: #1f1534;
   opacity: ${(props) => (props.$active ? '1' : '0.4')};
+
+  &:hover {
+    opacity: 0.8;
+  }
 `

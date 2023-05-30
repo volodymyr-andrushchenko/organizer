@@ -74,4 +74,8 @@ export const Link = styled.a`
   font-weight: 600;
   font-size: 17px;
   line-height: 28px;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `

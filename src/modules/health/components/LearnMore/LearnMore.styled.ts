@@ -6,6 +6,7 @@ import ButtonBase from '../../styled-components/Button'
 import SectionHeaderBase from '../../styled-components/SectionHeader'
 import SectionHeaderUnderlineBase from '../../styled-components/SectionHeaderUnderline'
 import downArrow from '@/assets/ui/down-arrow.svg'
+import downArrowWhite from '@/assets/ui/down-arrow-white.svg'
 
 export const Wrapper = styled.section`
   margin-top: 222px;
@@ -32,6 +33,10 @@ export const DownloadButton = styled(Button)`
   background-position: right 44px center;
   padding-left: 45px;
   padding-right: 70px;
+
+  &:hover {
+    background-image: url('${downArrowWhite}');
+  }
 `
 
 export const Paragraph = styled(ParagraphBase)`

@@ -12,6 +12,12 @@ const Button = styled.button<Props>`
   padding: 16px 50px;
   font-weight: 700;
   font-size: 18px;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.$primary ? 'transparent' : '#458FF6'};
+    color: ${(props) => (props.$primary ? '#458FF6' : 'white')};
+  }
 `
 
 export default Button
