@@ -31,6 +31,11 @@ export const Card = styled.li`
   padding: 0 40px;
   box-shadow: 10px 40px 50px rgba(229, 233, 246, 0.4);
   width: 350px;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
 export const ImageContainer = styled.div`

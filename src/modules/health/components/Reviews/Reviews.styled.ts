@@ -3,8 +3,11 @@ import SectionHeaderBase from '../../styled-components/SectionHeader'
 import CenteredColumnBase from '../../styled-components/Center'
 import SectionHeaderUnderlineBase from '../../styled-components/SectionHeaderUnderline'
 import RowBase from '../../styled-components/Row'
+import arrowImg from '@/assets/slider/arrow.svg'
 
 export const SectionHeader = SectionHeaderBase
+
+export const ReviewsSection = styled.section``
 
 export const Wrapper = styled.div`
   background: linear-gradient(208.18deg, #67c3f3 9.05%, #5a98f2 76.74%);
@@ -72,4 +75,35 @@ export const CustomerFeedback = styled.blockquote`
     font-size: 14px;
     line-height: 1.4;
   }
+`
+
+export const BackArrow = styled.button`
+  background-image: url('${arrowImg}');
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 28px;
+  height: 18px;
+
+  &.swiper-button-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+`
+export const ForwardArrow = styled(BackArrow)`
+  transform: rotate(180deg);
+`
+
+export const SwiperControls = styled.div`
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export const PaginationIndication = styled.div`
+  max-width: max-content;
+  margin: 0 20px;
 `
