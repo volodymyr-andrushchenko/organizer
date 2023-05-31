@@ -12,6 +12,7 @@ const Button = styled.button<Props>`
   padding: 16px 50px;
   font-weight: 700;
   font-size: 18px;
+  transition: 0.3s ease-in-out;
 
   &:hover {
     background-color: ${(props) =>
