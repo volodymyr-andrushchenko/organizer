@@ -23,6 +23,7 @@ const Header = () => {
               onClick={() => setCurrentPage(link.id)}
               $active={currentPage === link.id}
               href="#"
+              data-text={link.text} // this is for css attr()
             >
               {link.text}
             </Link>

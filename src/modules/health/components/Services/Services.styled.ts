@@ -29,12 +29,24 @@ export const Card = styled.li`
   border-radius: 20px;
   min-height: 354px;
   padding: 0 40px;
-  box-shadow: 10px 40px 50px rgba(229, 233, 246, 0.4);
   width: 350px;
   transition: transform 0.3s ease-in-out;
+  position: relative;
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  :after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 10px 40px 50px rgba(229, 233, 246, 0.4);
+    z-index: -1;
+    border-radius: 20px;
   }
 `
 
