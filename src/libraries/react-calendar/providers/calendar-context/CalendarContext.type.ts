@@ -38,6 +38,7 @@ export type CalendarState = {
   allowFullScreen: boolean
   withCloseIcon: boolean
   title: string
+  description: string
   content: string
   actions: string
   calendarEvent?: Event

@@ -1,6 +1,12 @@
-import { useState, useContext } from 'react'
-import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
-import { format, getMonth, addMonths, subMonths, isToday } from 'date-fns'
+import { useState } from 'react'
+import {
+  format,
+  getMonth,
+  addMonths,
+  subMonths,
+  isToday,
+  isSameDay,
+} from 'date-fns'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
@@ -13,15 +19,16 @@ import {
   DayHeader,
   Day,
   CalendarSmallWrapper,
-} from './CalendarSmall.styled'
+} from './DateSelectDropout.styled'
 import { getDatesToDisplay } from '../../utils'
 
-function CalendarSmall() {
-  const { stateCalendar, setStateCalendar } = useContext(CalendarContext)
-  const { selectedDate } = stateCalendar
+type Props = {
+  datepickerValue: Date
+  datepickerOnChange: (date: Date) => void
+}
 
-  const [internalDate, setInternalDate] = useState(selectedDate)
-  const [selectedInternalDate, setSelectedInternalDate] = useState(selectedDate)
+function DateSelectDropout({ datepickerValue, datepickerOnChange }: Props) {
+  const [internalDate, setInternalDate] = useState(datepickerValue)
 
   const weeks = getDatesToDisplay(internalDate)
 
@@ -34,8 +41,7 @@ function CalendarSmall() {
   }
 
   function selectDate(newDate: Date) {
-    setStateCalendar({ selectedDate: newDate })
-    setSelectedInternalDate(newDate)
+    datepickerOnChange(newDate)
   }
 
   return (
@@ -103,13 +109,7 @@ function CalendarSmall() {
             key={`small-calendar-line-${weekIndex}`}
           >
             {week.map((day: Date, dayIndex: number) => {
-              const isTodayDay = isToday(day)
-
-              const isSelected =
-                selectedInternalDate !== null &&
-                !isTodayDay &&
-                format(day, 'ddMMyyyy') ===
-                  format(selectedInternalDate, 'ddMMyyyy')
+              const isSelected = isSameDay(datepickerValue, day)
 
               const isCurrentMonth = getMonth(internalDate) === getMonth(day)
 
@@ -121,7 +121,7 @@ function CalendarSmall() {
                 >
                   <Day
                     selected={isSelected}
-                    today={isTodayDay}
+                    today={isToday(day)}
                     isCurrentMonth={isCurrentMonth}
                     onClick={() => selectDate(day)}
                   >
@@ -137,4 +137,4 @@ function CalendarSmall() {
   )
 }
 
-export default CalendarSmall
+export default DateSelectDropout

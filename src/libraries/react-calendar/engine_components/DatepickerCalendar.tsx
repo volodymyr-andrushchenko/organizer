@@ -1,30 +1,21 @@
-import React from 'react'
 import { createPortal } from 'react-dom'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import Collapse from '@material-ui/core/Collapse'
-import CalendarSmall from '../components/miniature/CalendarSmall'
+import { Paper, ClickAwayListener, Collapse } from '@mui/material'
+import DateSelectDropout from '../components/date-picker/DateSelectDropout'
+import { CSSProperties } from 'styled-components'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const styles: Record<string, CSSProperties> = {
   collapseCalendar: {
     position: 'absolute',
     zIndex: 1600,
   },
   paper: {
-    paddingTop: theme.spacing(1),
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    // marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(2),
+    padding: 4,
+    marginLeft: 8,
     maxWidth: 272,
   },
-}))
+}
 
 function DatepickerCalendar(props: any) {
-  const classes = useStyles()
-
   const {
     datepickerValue = new Date(),
     calendarPosition = { top: 0, left: 0 },
@@ -37,13 +28,14 @@ function DatepickerCalendar(props: any) {
     <ClickAwayListener onClickAway={handleClickAway}>
       <Collapse
         in={openCalendar}
-        className={classes.collapseCalendar}
-        style={{ top: calendarPosition.top, left: calendarPosition.left }}
-        // style={{ top: 200, left: 400 }}
+        style={{
+          top: calendarPosition.top,
+          left: calendarPosition.left,
+          ...styles.collapseCalendar,
+        }}
       >
-        <Paper className={classes.paper}>
-          <CalendarSmall
-            isDatepicker={true}
+        <Paper style={styles.paper}>
+          <DateSelectDropout
             datepickerOnChange={handleChangeDateCalendar}
             datepickerValue={datepickerValue}
           />

@@ -1,16 +1,11 @@
 import { useContext } from 'react'
 import { CalendarContext } from '../../providers/calendar-context/CalendarContext'
-import getSelectedWeekIndex from '../../common/getSelectedWeekIndex'
-import CalendarLayoutMonth from '../CalendarLayoutMonth'
-import CalendarLayoutDayWeek from '../CalendarLayoutDayWeek'
-import { getDatesToDisplay } from '../../utils'
+import CalendarLayoutMonth from '../calendar-month/CalendarLayoutMonth'
+import CalendarLayoutDayWeek from '../calendar-day/CalendarLayoutDayWeek'
+import { getDatesToDisplay, getSelectedWeekIndex } from '../../utils'
 import { MainCalendarWrapper } from './CalendarMain.styled'
 
-interface CalendarMainProps {
-  runAnimation: boolean
-}
-
-function CalendarMain({ runAnimation }: CalendarMainProps) {
+function CalendarMain() {
   const { stateCalendar } = useContext(CalendarContext)
   const { selectedDate, layout } = stateCalendar
 
@@ -20,11 +15,14 @@ function CalendarMain({ runAnimation }: CalendarMainProps) {
 
   return (
     <MainCalendarWrapper>
-      {/* {layout === "month" && <CalendarLayoutMonth weeks={weeks} runAnimation={runAnimation} />}
-
-            {(layout === "week" || layout === "day") && (
-                <CalendarLayoutDayWeek selectedWeekIndex={selectedWeekIndex} selectedWeek={selectedWeek} />
-            )} */}
+      {layout === 'month' ? (
+        <CalendarLayoutMonth weeks={weeks} />
+      ) : (
+        <CalendarLayoutDayWeek
+          selectedWeekIndex={selectedWeekIndex}
+          selectedWeek={selectedWeek}
+        />
+      )}
     </MainCalendarWrapper>
   )
 }
